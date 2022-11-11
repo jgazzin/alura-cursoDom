@@ -11,8 +11,12 @@ const createTask = (evento) => {
     const input = document.querySelector("[data-form-input");
     // guarda contenido del input en una variable
     const value = input.value;
-    // capturo el elemnento data-task (lista)
-    const task = document.querySelector("[data-task]");
+    // elemento donde se imprime la respuesta
+    const list = document.querySelector("[data-list]");
+    // crea nuevo elemento:
+    const task = document.createElement("li");
+    // crea clase para el elemento task
+    task.classList.add("card");
     // borra el input
     input.value = "";
     // variable donde se guarda código nuevo q se va a agregar al html
@@ -24,6 +28,9 @@ const createTask = (evento) => {
     // en ${value} agrega el texto que se había tomado del input
     // agrega contenido en task para q se imprima en pantalla
     task.innerHTML=contenido;
+
+    // agrega toda la tarea (codigo) al task (elemento que se agrega con la respuesta) (indica de quen es hijo task -list)
+    list.appendChild(task);
     console.log(task);
 
 };
