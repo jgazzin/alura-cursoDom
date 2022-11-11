@@ -29,16 +29,13 @@
         const titleTask = document.createElement("span");
         titleTask.classList.add ("task");
         titleTask.innerText = value;
-        const contenido = `
-        <i class="fas fa-trash-alt trashIcon icon"></i>`
-        // task.innerHTML=taskContent;
     
         // métodos para manipular nodos
         // agrega el código a cada etiqueta (en el orden que tienen q aparecer)
         taskContent.appendChild(titleTask);
         task.appendChild(taskContent);
+        task.appendChild(borrarIcon());
         list.appendChild(task);
-        console.log(contenido);
     
     };
     console.log(btn);
@@ -67,5 +64,20 @@
         // en lugar de poner add y remove - toggle intercala add/ remove según corresponda
     }
     // se agrega un evento a la funcion para q devuelva datos del evento y poder capturarlo
+
+    // borrar tarea
+    const borrarIcon =()=> {
+        const i = document.createElement("i");
+        i.classList.add("fas", "fa-trash-alt", "trashIcon", "icon");
+        i.addEventListener("click", borrarTarea);
+
+        return i;
+    }
+
+    const borrarTarea = (e)=> {
+        // selecciona el elemento padre de donde se hizo el evento (la li correspondiente)
+        const tagPadre = e.target.parentElement; 
+        tagPadre.remove();
+    }
 })()
 
