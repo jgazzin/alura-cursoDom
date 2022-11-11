@@ -19,27 +19,48 @@ const createTask = (evento) => {
     task.classList.add("card");
     // borra el input
     input.value = "";
-    // variable donde se guarda código nuevo q se va a agregar al html
-    const contenido = `<div>
-    <i class="far fa-check-square icon">
-    </i>
-    <span class="task">${value}</span>
-    </div>`
-    // en ${value} agrega el texto que se había tomado del input
-    // agrega contenido en task para q se imprima en pantalla
-    task.innerHTML=contenido;
 
-    // agrega toda la tarea (codigo) al task (elemento que se agrega con la respuesta) (indica de quen es hijo task -list)
+    // crea el cógigo que se va a agregar con la tarea
+    const taskContent = document.createElement("div");
+    taskContent.appendChild(checkComplet());
+    const titleTask = document.createElement("span");
+    titleTask.classList.add ("task");
+    titleTask.innerText = value;
+    const contenido = `
+    <i class="fas fa-trash-alt trashIcon icon"></i>`
+    // task.innerHTML=taskContent;
+
+    // métodos para manipular nodos
+    // agrega el código a cada etiqueta (en el orden que tienen q aparecer)
+    taskContent.appendChild(titleTask);
+    task.appendChild(taskContent);
     list.appendChild(task);
-    console.log(task);
+    console.log(contenido);
 
 };
+console.log(btn);
 // (e) => función anonima
 
 // listener = evento que inicia la acción elemento.addEventListener
 btn.addEventListener("click", createTask);
 // toma el evento y ejecuta la acción
 
+// acción del check
+const checkComplet = () => {
+    const i = document.createElement("i");
+    // le agrega las clases + la etiqueta i
+    i.classList.add("far", "fa-check-square", "icon");
+    i.addEventListener("click", completeTask);
+    // retorna i
+    return i;
+}
 
-
-
+const completeTask = (e)=> {
+    // console.log(e.target);
+    const element = e.target;
+    element.classList.toggle("fas");
+    element.classList.toggle("far");
+    element.classList.toggle("completeIcon");
+    // en lugar de poner add y remove - toggle intercala add/ remove según corresponda
+}
+// se agrega un evento a la funcion para q devuelva datos del evento y poder capturarlo
