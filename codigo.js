@@ -2,20 +2,29 @@
 
 ( ()=> {
     const btn = document.querySelector("[data-form-btn]");
-    // variable que toma el selector data-form-btn
+    // variable que toma el selector data-form-btn -> evento
     
-    console.log(btn);
     // variable que contiene la funcion
-    
+    const addTask = (evento) => {
+        // elemento donde se imprime la respuesta
+        const list = document.querySelector("[data-list]");
+        const task = createTask(evento);
+        // agreta a la <ul> las li nuevas con cada tarea
+        list.appendChild(task);
+    }
+
     const createTask = (evento) => {
         // evita que se recargue la página cada vez q se ejecuta el evento
         evento.preventDefault();
         // acción : capturar lo que se escribió en el input
         const input = document.querySelector("[data-form-input");
+        const calendar = document.querySelector("[data-form-date");
         // guarda contenido del input en una variable
         const value = input.value;
-        // elemento donde se imprime la respuesta
-        const list = document.querySelector("[data-list]");
+        const date = calendar.value;
+        const dateFormat = moment(date).format("DD/MM/YYYY");
+        console.log(dateFormat);
+
         // crea nuevo elemento:
         const task = document.createElement("li");
         // crea clase para el elemento task
@@ -33,16 +42,23 @@
         // métodos para manipular nodos
         // agrega el código a cada etiqueta (en el orden que tienen q aparecer)
         taskContent.appendChild(titleTask);
+
+        // crea elemento de impresió de fecha
+        const dateElement =document.createElement("span");
+        dateElement.innerHTML = dateFormat;
+        
         task.appendChild(taskContent);
+        task.appendChild(dateElement);
         task.appendChild(borrarIcon());
-        list.appendChild(task);
-    
+
+        // envía la tarea creada a addTask
+        return task;
     };
     console.log(btn);
     // (e) => función anonima
     
     // listener = evento que inicia la acción elemento.addEventListener
-    btn.addEventListener("click", createTask);
+    btn.addEventListener("click", addTask);
     // toma el evento y ejecuta la acción
     
     // acción del check
