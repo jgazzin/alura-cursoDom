@@ -16,6 +16,10 @@
     const createTask = (evento) => {
         // evita que se recargue la página cada vez q se ejecuta el evento
         evento.preventDefault();
+        // arreglo para almacenamieto de task en local
+        // se inicia directamente con lo q ya haya almacenado en local
+        const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+
         // acción : capturar lo que se escribió en el input
         const input = document.querySelector("[data-form-input");
         const calendar = document.querySelector("[data-form-date");
@@ -35,6 +39,16 @@
         // crea el cógigo que se va a agregar con la tarea
         const taskContent = document.createElement("div");
         taskContent.appendChild(checkComplet());
+
+        // almacenamieto de datos en un objeto
+        const taskObj = {
+            value,
+            dateFormat
+        };
+        // agregar al arreglo taskList
+        taskList.push(taskObj);
+        localStorage.setItem("tasks", JSON.stringify(taskList));       
+
         const titleTask = document.createElement("span");
         titleTask.classList.add ("task");
         titleTask.innerText = value;
