@@ -34,3 +34,11 @@ Api nativa para almacenamiento de datos en navegador {
         // el json.parse es para invertir el string del array a formato objeto
 
 }
+
+
+uuida libreria externa de identificadores unicos {
+    https://cdnjs.com/libraries/uuid/8.3.2
+
+    link para index
+    https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js
+}
