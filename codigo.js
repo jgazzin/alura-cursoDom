@@ -20,7 +20,7 @@
         const value = input.value;
         const date = calendar.value;
         const dateFormat = moment(date).format("DD/MM/YYYY");
-        console.log(dateFormat);
+        // console.log(dateFormat);
 
         // validación de datos input + fecha para q no guarde objetos vacíos
         if(value==="" || date ==="") {
@@ -100,7 +100,7 @@
         const dates = uniqueDates(taskList);
         // console.log(dates);
         dates.forEach(date => {
-            console.log(date);
+            // console.log(date);
             // formateo cada date para q se pueda comparar con el = formato de cada tarea
             const dateMoment = moment(date, "DD/MM/YYYY");
 
@@ -158,17 +158,17 @@
 
         // crea elemento de impresió de fecha
         const dateElement = document.createElement("span");
-            dateElement.innerHTML = dateFormat;
+            // dateElement.innerHTML = dateFormat;
 
             task.appendChild(taskContent);
             task.appendChild(dateElement);
-            task.appendChild(borrarIcon());
+            task.appendChild(borrarIcon(id));   // envio el id a la funcion
 
         // envía la tarea creada a addTask
         return task;
     }
 
-    console.log(btn);
+    // console.log(btn);
     // (e) => función anonima
     
     // listener = evento que inicia la acción elemento.addEventListener
@@ -176,6 +176,7 @@
     // toma el evento y ejecuta la acción
 
     // --- acciones con las tareas ---
+
     // acción del check
     const checkComplet = (id) => {
         const i = document.createElement("i");
@@ -208,18 +209,28 @@
 
 
     // borrar tarea
-    const borrarIcon =()=> {
+    const borrarIcon =(id)=> {
         const i = document.createElement("i");
         i.classList.add("fas", "fa-trash-alt", "trashIcon", "icon");
-        i.addEventListener("click", borrarTarea);
+        i.addEventListener("click", () => borrarTarea(id));
 
         return i;
     }
 
-    const borrarTarea = (e)=> {
-        // selecciona el elemento padre de donde se hizo el evento (la li correspondiente)
-        const tagPadre = e.target.parentElement; 
-        tagPadre.remove();
+    const borrarTarea = (id)=> {
+        const taskDelete = JSON.parse(localStorage.getItem("tasks"));
+        // borrar el arreglo que coincide con el id
+        const indexDelete = taskDelete.findIndex( item => item.id === id)
+        console.log(indexDelete)
+        taskDelete.splice(indexDelete,1);
+        // console.log(taskDelete)
+        localStorage.setItem("tasks", JSON.stringify(taskDelete));
+
+        // para actualizar el html hay q reiniciar readTask
+        const list = document.querySelector("[data-list");
+        list.innerHTML = "";
+        // y volver a crear las tareas actualizadas en localStorege
+        readTask();
     }
 
     // lee datos almacenados en local
